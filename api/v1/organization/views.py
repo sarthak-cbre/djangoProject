@@ -1,6 +1,6 @@
 from rest_framework import status
 from rest_framework.generics import (ListCreateAPIView, RetrieveUpdateDestroyAPIView)
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from organization.models import Organization
@@ -9,7 +9,7 @@ from . import serializer
 class OrganizationAPI(ListCreateAPIView):
     queryset = Organization.objects.all()
     serializer_class = serializer.OrganizationSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
